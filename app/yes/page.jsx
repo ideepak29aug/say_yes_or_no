@@ -1,10 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
   const audioRef = useRef(null);
+  const [storedName, setStoredName] = useState("");
+    useEffect(() => {
+        const savedName = localStorage.getItem("username");
+        if (savedName) {
+          setStoredName(savedName.toUpperCase());
+        }
+      }, []);
 
   useEffect(() => {
     // Play background music
@@ -42,7 +49,7 @@ export default function Page() {
 
       <Image src="/mochi-cat.gif" alt="" width={200} height={200} />
       <h1>Hehehehe, I knew it! 😘</h1>
-      <p className="heart">I LOVE YOU MAMTA 💖</p>
+      <p className="heart">{`I LOVE YOU ${storedName} 💖`}</p>
     </div>
   );
 }
